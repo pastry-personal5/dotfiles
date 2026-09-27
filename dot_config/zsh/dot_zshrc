@@ -1,4 +1,5 @@
 # Interactive shells only.
+# This file is managed by chezmoi. Look for https://github.com/pastry-personal5/dotfiles for details.
 # zmodload zsh/zprof                          # uncomment to profile startup
 
 : ${HOMEBREW_PREFIX:=/opt/homebrew}

@@ -1,4 +1,5 @@
 # Read by EVERY zsh, including scripts. Keep it tiny and silent.
+# This file is managed by chezmoi. Look for https://github.com/pastry-personal5/dotfiles for details.
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
