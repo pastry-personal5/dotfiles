@@ -1,0 +1,66 @@
+# Interactive shells only.
+# zmodload zsh/zprof                          # uncomment to profile startup
+
+: ${HOMEBREW_PREFIX:=/opt/homebrew}
+autoload -Uz add-zsh-hook
+
+# ---- Options ----
+setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
+setopt INTERACTIVE_COMMENTS NO_BEEP
+
+# ---- History ----
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+HISTSIZE=100000
+SAVEHIST=100000
+[[ -d ${HISTFILE:h} ]] || mkdir -p "${HISTFILE:h}"
+setopt EXTENDED_HISTORY SHARE_HISTORY HIST_IGNORE_ALL_DUPS \
+       HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY
+
+# ---- Keys ----
+bindkey -e                                   # emacs keys (EDITOR=nvim would pick vi mode)
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search   # ↑ = history search by typed prefix
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
+bindkey '^[[H' beginning-of-line             # Home
+bindkey '^[[F' end-of-line                   # End
+bindkey '^[[3~' delete-char                  # Delete
+
+# ---- Completion (compinit itself is run by ez-compinit) ----
+fpath=("$ZDOTDIR/completions" "$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump"
+[[ -d ${ZSH_COMPDUMP:h} ]] || mkdir -p "${ZSH_COMPDUMP:h}"
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # case-insensitive
+zstyle ':completion:*' menu select                          # arrow-key menu
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+
+# ---- Plugin settings (must be set before plugins load) ----
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+zstyle ':omz:alpha:lib:git' async-prompt no  # Starship draws the prompt
+zstyle ':antidote:bundle' use-friendly-names yes
+
+# ---- Plugins ----
+if [[ -r $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh ]]; then
+  source "$HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh"
+  antidote load                              # reads .zsh_plugins.txt
+fi
+
+# ---- Your modules (after plugins, so your aliases win) ----
+for _f in "$ZDOTDIR"/conf.d/*.zsh(N); do source "$_f"; done
+unset _f
+
+# ---- Machine-specific, not in git ----
+[[ -r $ZDOTDIR/local.zsh ]] && source "$ZDOTDIR/local.zsh"
+
+# ---- Prompt ----
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+
+# zprof                                      # uncomment with zmodload above
+
+

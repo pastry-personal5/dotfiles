@@ -1,0 +1,17 @@
+# Login shells (every new Terminal/iTerm tab on macOS).
+# Runs after /etc/zprofile's path_helper, so PATH changes belong here.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"   # sets PATH, HOMEBREW_PREFIX
+fi
+
+# Extra paths. The first entry wins when two folders have the same command.
+# (N-/) = add only if the folder exists, following symlinks.
+path=(
+  $HOME/.local/bin(N-/)       # your own scripts
+  $HOME/.cargo/bin(N-/)       # Rust
+  $HOME/go/bin(N-/)           # Go
+  $path                       # Homebrew + system
+)
+
+# Paths for this Mac only (not in git)
+[[ -r $ZDOTDIR/local.zprofile ]] && source "$ZDOTDIR/local.zprofile"

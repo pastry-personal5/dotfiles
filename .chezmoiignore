@@ -1,0 +1,4 @@
+.config/zsh/local.zsh
+.config/zsh/local.zprofile
+.config/zsh/.zsh_plugins.zsh
+Brewfile

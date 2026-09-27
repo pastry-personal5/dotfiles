@@ -1,0 +1,12 @@
+# Completion: ez-compinit queues compdef calls and runs compinit once
+mattmc3/ez-compinit
+zsh-users/zsh-completions kind:fpath path:src
+
+# Oh My Zsh pieces only, not the framework
+ohmyzsh/ohmyzsh path:lib/git.zsh
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/macos
+
+# Suggestions and highlighting (syntax-highlighting must stay LAST)
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting

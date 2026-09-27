@@ -1,0 +1,13 @@
+# Read by EVERY zsh, including scripts. Keep it tiny and silent.
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"      # all other zsh files live here
+
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+export PAGER="less"
+export SHELL_SESSIONS_DISABLE=1            # macOS Terminal: no ~/.zsh_sessions
+
+typeset -U path fpath                      # no duplicate entries

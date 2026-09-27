@@ -1,0 +1,7 @@
+alias ls='ls -G'
+alias ll='ls -lAhG'
+alias grep='grep --color=auto'
+alias reload='exec zsh -l'
+alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
+alias plugins='$EDITOR $ZDOTDIR/.zsh_plugins.txt'
+alias paths='print -l $path'
