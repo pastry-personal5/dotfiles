@@ -5,7 +5,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"      # all other zsh files live here
 
-export EDITOR="nvim"
+export EDITOR="vim"
 export VISUAL="$EDITOR"
 export PAGER="less"
 export SHELL_SESSIONS_DISABLE=1            # macOS Terminal: no ~/.zsh_sessions
